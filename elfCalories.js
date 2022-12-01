@@ -16,3 +16,7 @@ let summedCalories = calories.map(elf => {
     });
     return total;
 });
+
+// Find highest calorie value
+console.log(Math.max(...summedCalories));
+
