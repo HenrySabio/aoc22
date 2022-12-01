@@ -20,3 +20,6 @@ let summedCalories = calories.map(elf => {
 // Find highest calorie value
 console.log(Math.max(...summedCalories));
 
+// Find the top 3 highest calorie values and sum them
+let topThree = summedCalories.sort((a, b) => b - a).slice(0, 3);
+console.log(topThree.reduce((a, b) => a + b));
