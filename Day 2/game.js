@@ -24,6 +24,8 @@ const same = {
 let playArray = plays.map(play => play.split(' '));
 
 const playGame = playArray.reduce((score, game) => score + scorePlay(game[0], game[1]), 0);
+const playGameSpecial = playArray.reduce((score, game) => score + scorePlaySpecial(game[0], game[1]), 0);
+
 
 function scorePlay(player1, player2) {
     const game = player1 + player2;
@@ -37,6 +39,15 @@ function scorePlay(player1, player2) {
     }
 }
 
-console.log(playGame);
+function scorePlaySpecial(opponentMove, outcome) {
+    const opponentMoves = ['A', 'B', 'C'];
+    const playerMoves = ['X', 'Y', 'Z'];
+    
+    const modulator = outcome == 'X' ? -1 : outcome == 'Y' ? 0 : 1;
+    const playerMove = playerMoves[(opponentMoves.indexOf(opponentMove) + modulator + 3) % 3];
 
+    return scorePlay(opponentMove, playerMove);
+}
 
+console.log(`Part 1 score is: ${playGame}`);
+console.log(`Part 2 score is: ${playGameSpecial}`);
