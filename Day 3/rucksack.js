@@ -11,14 +11,18 @@ const rucksacks = fs.readFileSync('puzzleInput.txt', 'utf8')
 
 const prioritizeRucksacks = (rucksacks) => {
     let priorityTotal = 0;
+    // Go through each rucksack
     const rucksackMap = rucksacks.map(rucksack => {
-        const [halfOne, halfTwo] = splitArray(rucksack);;
+        // Split each rucksack into two compartments
+        const [halfOne, halfTwo] = splitArray(rucksack);
+        // Find matching item between both compartments
         const match = findMatch(halfOne, halfTwo);
-
+        // Find priorty value of matching item
         findPosition(match[0]);
-
+        // Add priority value to total
         priorityTotal += findPosition(match[0]);
     });
+    // Return sum of priority values of all items in rucksacks
     return priorityTotal
 }
 
