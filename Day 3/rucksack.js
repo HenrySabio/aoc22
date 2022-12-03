@@ -16,7 +16,7 @@ const prioritizeRucksacks = (rucksacks) => {
         const match = findMatch(halfOne, halfTwo);
 
         findPosition(match[0]);
-        
+
         priorityTotal += findPosition(match[0]);
     });
     return priorityTotal
@@ -46,9 +46,9 @@ function findPosition(letter) {
     const codePoint = letter.charCodeAt(0);
 
     if (letter === letter.toUpperCase()) {
-        return codePoint - 38;
+        return codePoint - 38; // Capital letter values start at 27 and end at 52
     } else {
-        return codePoint - 96;
+        return codePoint - 96; // Lowercase letter values start at 1 and end at 26
     }
 }
 
