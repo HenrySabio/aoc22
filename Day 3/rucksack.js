@@ -38,9 +38,13 @@ function splitArray(arr) {
     return [firstHalf, secondHalf];
 }
 
-// find matching string in 2 arrays
-function findMatch(arr1, arr2) {
-    return arr1.filter(letter => arr2.includes(letter));
+// find matching string in 2 arrays (or 3 arrays)
+function findMatch(arr1, arr2, arr3 = false) {
+    if (arr3 === false) {
+        return arr1.filter(letter => arr2.includes(letter));
+    } else {
+        return arr1.filter(letter => arr2.includes(letter) && arr3.includes(letter));
+    }
 }
 
 // Finds position of letter in alphabet
@@ -58,3 +62,24 @@ function findPosition(letter) {
 
 console.log(prioritizeRucksacks(rucksacks));
 
+// Part 2
+
+const prioritizeRucksackGroups = (rucksacks) => {
+    let priorityTotal = 0;
+
+    // Go through rucksacks in groups of 3
+    for (let i = 0; i < rucksacks.length; i += 3) {
+        // Create group of 3 rucksacks
+        const rucksackGroup = rucksacks.slice(i, i + 3);
+        // Find matching item between all 3 rucksacks
+        const matchingBadge = findMatch(rucksackGroup[0].split(''), rucksackGroup[1].split(''), rucksackGroup[2].split(''));
+        // Find priority value of matching item
+        findPosition(matchingBadge[0]);
+        // Add priority value of item to total
+        priorityTotal += findPosition(matchingBadge[0]);
+    }
+    // Return sum of priority values of all matching items in rucksack groups
+    return priorityTotal;
+}
+
+console.log(prioritizeRucksackGroups(rucksacks));
