@@ -14,7 +14,7 @@ let assignmentPairs = assignmentList.map((pair) => {
 });
 
 // Begin overlap checking between assignment pairs
-let overlap = (assignmentPairs) => {
+let overlap = (assignmentPairs, condition) => {
     // Initial Overlap Count
     let overlaps = 0;
 
@@ -25,7 +25,7 @@ let overlap = (assignmentPairs) => {
         let arr2 = rangeSpreader(pair[1]); // Create array containing all values in range
 
         // Check if either array is a subset of the other - add 1 to overlap count if true
-        overlaps += checkOverlap(arr1, arr2);
+        overlaps += checkOverlap(arr1, arr2, condition);
     })
     return overlaps;
 }
@@ -43,13 +43,23 @@ function rangeSpreader(range) {
     return rangeArray; // Return completed array of all values within provided range
 }
 
+
 // Checks if either array is a subset of the other
-function checkOverlap(arr1, arr2) {
-    if (arr1.every(array => arr2.includes(array)) || arr2.every(array => arr1.includes(array))) {
-        return 1; //If either array is a subset of the other, return 1
-    } else {
-        return 0; // If neither array is a subset of the other, return 0
+function checkOverlap(arr1, arr2, condition) {
+    if (condition === 'all') {
+        if (arr1.every(array => arr2.includes(array)) || arr2.every(array => arr1.includes(array))) {
+            return 1; //If either array is a subset of the other, return 1
+        } else {
+            return 0; // If neither array is a subset of the other, return 0
+        }
+    } else if (condition === 'any') { // Part 2
+        if (arr1.some(array => arr2.includes(array)) || arr2.some(array => arr1.includes(array))) {
+            return 1; //If either array overlaps the other, return 1
+        } else {
+            return 0; // otherwise, return 0
+        }
     }
 }
 
-console.log(overlap(assignmentPairs));
+console.log(`Total overlaps with complete subsets: ${overlap(assignmentPairs, 'all')}`);
+console.log(`Total partial overlaps: ${overlap(assignmentPairs, 'any')}`);
